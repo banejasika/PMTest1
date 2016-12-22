@@ -1,0 +1,16 @@
+{
+      "name":"PMTest1",
+      "description":"My first plugin",
+      "namespace":"PMTest1",
+      "author":"Test",
+      "type":"template",
+      "serviceProvider":"PMTest1\\Providers\\PMTestServiceProvider",
+      "dataProviders":
+      [
+            {
+            "key"           :"PMTest1\\Containers\\HeadContainer",
+            "name"          :"Head",
+            "description"   :"Displays a scripts into template's header"
+            }
+      ]
+}

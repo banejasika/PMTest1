@@ -1,12 +1,12 @@
 {
-  "defaultEntryPoint": "index.html",
+  "defaultEntryPoint": "index.twig",
   "namespace": "PMTest1",
   "menuEntries": [
     {
       "label": "PMTest1",
       "menu": "start",
       "urlKey": "hello-world",
-      "entryPoint": "index.html"
+      "entryPoint": "index.twig"
     }
   ]
 }

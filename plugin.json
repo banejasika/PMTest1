@@ -3,7 +3,7 @@
       "description":"My first plugin",
       "namespace":"PMTest1",
       "author":"Test",
-      "type":"template",
+      "type":"backend",
       "serviceProvider":"PMTest1\\Providers\\PMTestServiceProvider",
       "dataProviders":
       [

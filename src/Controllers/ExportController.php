@@ -1,4 +1,5 @@
 <?php
+namespace PMTest1\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
@@ -11,6 +12,7 @@ use IO\Services\ItemService;
 
 /**
  * Class ContentController
+ * @package PMTest1\Controllers
  */
 class ExportController extends Controller
 {

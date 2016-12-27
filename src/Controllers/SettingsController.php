@@ -75,54 +75,63 @@ class SettingsController extends Controller
     public function getHttpPage($url, $body, $customerId, $licenceKey)
     {
         $bodyString = json_encode($body);
-        $options = [
-            CURLOPT_URL => $url,
-            CURLOPT_HEADER => 0,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLINFO_HEADER_OUT => true,
-            CURLOPT_TIMEOUT => 10,
-            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-            CURLOPT_USERPWD => "$customerId:$licenceKey",
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_HTTPHEADER => [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($bodyString),
-            ],
-            CURLOPT_POSTFIELDS => $bodyString,
-        ];
-
         $cURL = curl_init();
-        curl_setopt_array($cURL, $options);
+        curl_setopt($cURL, CURLOPT_URL, $url);
+        curl_setopt($cURL, CURLOPT_HEADER, 0);
+        curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cURL, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($cURL, CURLOPT_TIMEOUT, 10);
+        curl_setopt($cURL, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($cURL, CURLOPT_USERPWD, "$customerId:$licenceKey");
+        curl_setopt($cURL, CURLOPT_HTTPHEADER,
+            ['Content-Type: application/json', 'Content-Length: ' . strlen($bodyString),]);
+        curl_setopt($cURL, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($cURL, CURLOPT_POSTFIELDS, $bodyString);
+
+//            CURLOPT_HEADER => 0,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_FOLLOWLOCATION => true,
+//            CURLINFO_HEADER_OUT => true,
+//            CURLOPT_TIMEOUT => 10,
+//            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+//            CURLOPT_USERPWD => "$customerId:$licenceKey",
+//            CURLOPT_SSL_VERIFYPEER => false,
+//            CURLOPT_HTTPHEADER => [
+//                'Content-Type: application/json',
+//                'Content-Length: ' . strlen($bodyString),
+//            ],
+//            CURLOPT_POSTFIELDS => $bodyString,
+
         $response = curl_exec($cURL);
         $result = json_decode($response, true);
 
 //        $headers = curl_getinfo($cURL, CURLINFO_HEADER_OUT);
-        $status = curl_getinfo($cURL, CURLINFO_HTTP_CODE);
+//        $status = curl_getinfo($cURL, CURLINFO_HTTP_CODE);
 //        $this->logger->ycLog($url, $status, $response, $headers);
 
-        $eno = curl_errno($cURL);
+//        $eno = curl_errno($cURL);
 
-        if ($eno && $eno != 22) {
-            $msg = 'I/O error requesting [' . $url . ']. Code: ' . $eno . ". " . curl_error($cURL);
-            curl_close($cURL);
-            return $msg;
-        }
+//        if ($eno && $eno != 22) {
+//            $msg = 'I/O error requesting [' . $url . ']. Code: ' . $eno . ". " . curl_error($cURL);
+//            curl_close($cURL);
+//            return $msg;
+//        }
 
         curl_close($cURL);
-        switch ($status) {
-            case 200:
-                break;
-            case 409:
-                if ($result['faultCode'] === 'pluginAlreadyExistsFault') {
-                    break;
-                }
-            //it will will continue (fall-through) to the default intentionally
-            default:
-                $msg = $result['faultMessage'] . ' With status code: ' . $status;
-                return $msg;
-        }
+//        switch ($status) {
+//            case 200:
+//                break;
+//            case 409:
+//                if ($result['faultCode'] === 'pluginAlreadyExistsFault') {
+//                    break;
+//                }
+//            //it will will continue (fall-through) to the default intentionally
+//            default:
+//                $msg = $result['faultMessage'] . ' With status code: ' . $status;
+//                return $msg;
+//        }
 
         return $result;
     }

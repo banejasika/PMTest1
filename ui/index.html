@@ -1,2 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <title>Y Plugin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+</head>
+<body>
+    <form id="mainform" method="POST">
+        <input type="text" id="meda" name="meda" value="">
+        <p class="submit"><input type="submit" name="submit" id="yc_submit" class="button button-primary" value="Save"></p>
+    </form>
+</body>
+<script type="text/javascript">
+    (function () {
+        document.getElementById('yc_submit').onclick = function () {
+            var http = new XMLHttpRequest();
+            var url = "/pmtest1/settings/";
+            var value = document.getElementById('meda').value;
+            var params = "test=" + value;
+            http.open("POST", url, true);
 
-<h1>Hello World!</h1>
+            //Send the proper header information along with the request
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                }
+            }
+            http.send(params);
+        };
+    }());
+    (function () {
+        document.addEventListener('DOMContentLoaded', function() {
+            var http = new XMLHttpRequest();
+            var url = "/pmtest1/settings/";
+            http.open("GET", url, true);
+
+            http.onreadystatechange = function() {
+                if(http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                }
+            }
+            http.send();
+        }, false);
+    }());
+</script>
+</html>

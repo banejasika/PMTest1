@@ -6,13 +6,16 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Modules\Frontend\Services;
+use Plenty\Modules\Template\Design\Config\Models;
+
+use IO\Helper\TemplateContainer;
 
 
 /**
- * Class PMTestServiceProvider
+ * Class PMTest1ServiceProvider
  * @package PMTest1\Providers
  */
-class PMTestServiceProvider extends ServiceProvider
+class PMTest1ServiceProvider extends ServiceProvider
 {
 
 	const YOOCHOOSE_CDN_SCRIPT = '//event.yoochoose.net/cdn';
@@ -23,14 +26,32 @@ class PMTestServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->getApplication()->register(PMTestRouteServiceProvider::class);
+		$this->getApplication()->register(PMTest1RouteServiceProvider::class);
+		$events = $this->getEventDispatcher();
 	}
 
 	public function boot(Twig $twig, Dispatcher $eventDispatcher, ConfigRepository $config)
 	{
-//		$eventDispatcher->listen('tpl.category.container', function ($services, $config) {
-//			$services->addJsFile($this->getScriptURL($config));
+		//$services->addJsFile($this->getScriptURL($config));
+		
+		// Register Twig String Loader to use function: template_from_string
+		$twig->addExtension('Twig_Extension_StringLoader');
+
+		// provide template to use for blog categories
+//		$eventDispatcher->listen('tpl.category.blog', function(Services\FileService $service) {
+//			$service->addJsFile("http://localhost/v1/1465/tracking.js");
 //		}, 0);
+		
+		// provide template to use for container categories
+//		$eventDispatcher->listen('tpl.category.container', function(Services\FileService $service) {
+//			$service->addJsFile("http://localhost/v1/1465/tracking.js");
+//		}, 0);
+
+		$eventDispatcher->listen('tpl.category.container', function(TemplateContainer $container, $templateData) {
+//			$templateData = $container->getTemplateData();
+//			$container->withData("PMTest1::PageDesign.PageDesign", $templateData['identifier']);
+//			$service->addJsFile("http://localhost/v1/1465/tracking.js");
+		}, 0);
 
 	}
 

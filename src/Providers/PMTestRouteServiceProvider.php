@@ -5,10 +5,10 @@ use Plenty\Plugin\RouteServiceProvider;
 use Plenty\Plugin\Routing\Router;
 
 /**
- * Class PMTestRouteServiceProvider
+ * Class PMTest1RouteServiceProvider
  * @package PMTest1\Providers
  */
-class PMTestRouteServiceProvider extends RouteServiceProvider
+class PMTest1RouteServiceProvider extends RouteServiceProvider
 {
 	/**
 	 * @param Router $router
@@ -16,6 +16,11 @@ class PMTestRouteServiceProvider extends RouteServiceProvider
 	public function map(Router $router)
 	{
 		$router->get('hello', 'PMTest1\Controllers\ContentController@sayHello');
+		$router->get('yc/export', 'PMTest1\Controllers\ExportController@export');
+
+		//settings
+		$router->post('pmtest1/settings/', 'PMTest1\Controllers\SettingsController@saveSettings');
+		$router->get('pmtest1/settings/', 'PMTest1\Controllers\SettingsController@loadSettings');
 	}
 
 }

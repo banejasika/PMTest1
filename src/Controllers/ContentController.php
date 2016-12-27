@@ -5,6 +5,9 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\ConfigRepository;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Frontend\Services;
+use Plenty\Modules\System\Models;
+
+use IO\Helper\TemplateContainer;
 
 /**
  * Class ContentController
@@ -15,19 +18,28 @@ class ContentController extends Controller
 
     const YOOCHOOSE_CDN_SCRIPT = '//event.yoochoose.net/cdn';
     const AMAZON_CDN_SCRIPT = '//cdn.yoochoose.net';
-	/**
+
+
+    private $container;
+
+
+    public function __construct(TemplateContainer $container)
+    {
+        $this->container = $container;
+    }
+
+
+    /**
 	 * @param Twig $twig
 	 * @return string
 	 */
 	public function sayHello(Twig $twig):string
 	{
-//        $jsFile = $this->getTitle();
 
-//        addJsFile($jsFile);
+        $test = $this->container->getTemplateData();
 
-//		return $twig->render('PMTest1::content.hello');
+		return $twig->render('PMTest1::content.hello', ['test' => json_encode($test)]);
         
-        return '';
 	}
 
     // access configuration from PHP

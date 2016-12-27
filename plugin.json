@@ -3,14 +3,18 @@
       "description":"My first plugin",
       "namespace":"PMTest1",
       "author":"Test",
-      "type":"backend",
-      "serviceProvider":"PMTest1\\Providers\\PMTestServiceProvider",
-      "dataProviders":
-      [
+      "type":"template",
+      "version": "1.0.0",
+      "serviceProvider":"PMTest1\\Providers\\PMTest1ServiceProvider",
+      "dataProviders": [
             {
-            "key"           :"PMTest1\\Containers\\HeadContainer",
-            "name"          :"Head",
-            "description"   :"Displays a scripts into template's header"
+            "key":"PMTest1\\Providers\\PMTest1ServiceDataProvider",
+            "name":"Y Tracking",
+            "description": "Y Tracking"
             }
+      ],
+      "javaScriptFiles": [],
+      "runOnBuild": [
+            "PMTest1\\Migrations\\CreateSettingsTable"
       ]
 }

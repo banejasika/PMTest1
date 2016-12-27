@@ -43,7 +43,7 @@ class SettingsController extends Controller
     /**
      *
      */
-    public function verifyCredentials():string
+    public function verifyCredentials()
     {
 
         $pluginId = null;
@@ -74,13 +74,13 @@ class SettingsController extends Controller
     }
 
 
-    public function getHttpPage($url, $body, $customerId, $licenceKey):string
+    public function getHttpPage($url, $body, $customerId, $licenceKey)
     {
 
         $bodyString = json_encode($body);
-        $header = [
+        $header = array(
             'Content-Type: application/json',
-            'Content-Length: ' . strlen($bodyString),];
+            'Content-Length: ' . strlen($bodyString),);
         $cURL = curl_init();
         curl_setopt($cURL, CURLOPT_URL, $url);
         curl_setopt($cURL, CURLOPT_HEADER, 0);

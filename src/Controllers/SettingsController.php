@@ -73,6 +73,7 @@ class SettingsController extends Controller
         return $this->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 
+
     public function getHttpPage($url, $body, $customerId, $licenceKey):string
     {
         $bodyString = json_encode($body);

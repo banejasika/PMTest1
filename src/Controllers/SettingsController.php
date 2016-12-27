@@ -54,7 +54,7 @@ class SettingsController extends Controller
         $licenseKey = 5555;
         $body = [
             'base' => [
-                'type' => $this->settingsService->getSettingsValue('yc_test'),
+                'type' => "MAGENTO2",
                 'pluginId' => $pluginId,
                 'endpoint' => $endpoint,
                 'appKey' => '',

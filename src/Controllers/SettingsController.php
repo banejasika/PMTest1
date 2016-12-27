@@ -76,7 +76,11 @@ class SettingsController extends Controller
 
     public function getHttpPage($url, $body, $customerId, $licenceKey):string
     {
+
         $bodyString = json_encode($body);
+        $header = [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($bodyString),];
         $cURL = curl_init();
         curl_setopt($cURL, CURLOPT_URL, $url);
         curl_setopt($cURL, CURLOPT_HEADER, 0);
@@ -86,8 +90,7 @@ class SettingsController extends Controller
         curl_setopt($cURL, CURLOPT_TIMEOUT, 10);
         curl_setopt($cURL, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($cURL, CURLOPT_USERPWD, "$customerId:$licenceKey");
-        curl_setopt($cURL, CURLOPT_HTTPHEADER,
-            ['Content-Type: application/json', 'Content-Length: ' . strlen($bodyString),]);
+        curl_setopt($cURL, CURLOPT_HTTPHEADER, $header);
         curl_setopt($cURL, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($cURL, CURLOPT_POSTFIELDS, $bodyString);
 

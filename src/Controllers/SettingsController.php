@@ -54,7 +54,7 @@ class SettingsController extends Controller
         $licenseKey = 5555;
         $body = [
             'base' => [
-                'type' => 'PlENTYMARKETS',
+                'type' => $this->settingsService->getSettingsValue('yc_test'),
                 'pluginId' => $pluginId,
                 'endpoint' => $endpoint,
                 'appKey' => '',

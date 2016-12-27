@@ -43,7 +43,8 @@ class SettingsController extends Controller
     /**
      *
      */
-    public function verifyCredentials(){
+    public function verifyCredentials():string
+    {
 
         $pluginId = null;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
@@ -53,7 +54,7 @@ class SettingsController extends Controller
         $licenseKey = 5555;
         $body = [
             'base' => [
-                'type' => 'MAGENTO2',
+                'type' => 'PlENTYMARKETS',
                 'pluginId' => $pluginId,
                 'endpoint' => $endpoint,
                 'appKey' => '',
@@ -72,7 +73,7 @@ class SettingsController extends Controller
         return $this->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 
-    public function getHttpPage($url, $body, $customerId, $licenceKey)
+    public function getHttpPage($url, $body, $customerId, $licenceKey):string
     {
         $bodyString = json_encode($body);
         $cURL = curl_init();
@@ -109,7 +110,6 @@ class SettingsController extends Controller
 
 //        $headers = curl_getinfo($cURL, CURLINFO_HEADER_OUT);
 //        $status = curl_getinfo($cURL, CURLINFO_HTTP_CODE);
-//        $this->logger->ycLog($url, $status, $response, $headers);
 
 //        $eno = curl_errno($cURL);
 

@@ -84,7 +84,7 @@ class SettingsController extends Controller
 //        {
 //            return 'error';
 //        }
-        $domain = $_SERVER['SERVER_NAME'];
+//        $domain = $_SERVER['SERVER_NAME'];
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');
@@ -92,7 +92,7 @@ class SettingsController extends Controller
             'base' => [
                 'type' => "MAGENTO2",
                 'pluginId' => $this->settingsService->getSettingsValue('plugin_id'),
-                'endpoint' => $domain,
+                'endpoint' => null,
                 'appKey' => '',
                 'appSecret' => $token,
             ],

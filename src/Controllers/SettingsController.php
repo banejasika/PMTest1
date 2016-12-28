@@ -52,7 +52,7 @@ class SettingsController extends Controller
     {
         $tests = array();
 
-        $tests['test'] = $request->get('test');
+        $tests['yc_test'] = $request->get('yc_test');
         $tests['customer_id'] = $request->get('customer_id');
         $tests['license_key'] = $request->get('license_key');
         $tests['plugin_id'] = $request->get('plugin_id');

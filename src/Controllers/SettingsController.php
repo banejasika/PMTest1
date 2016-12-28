@@ -5,22 +5,53 @@ namespace PMTest1\Controllers;
 use PMTest1\Services\SettingsService;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
+use PMTest1\Helper\Helper;
+use Plenty\Modules\System\Models\WebstoreConfiguration;
+use Plenty\Modules\Helper\Services\WebstoreHelper;
 
 class SettingsController extends Controller
 {
     const YOOCHOOSE_LICENSE_URL = 'https://admin.yoochoose.net/api/v4/';
+
     /**
      * @var SettingsService
      */
     private $settingsService;
 
     /**
+     * @var Helper
+     */
+    private $helper;
+
+    /**
+     * @var WebstoreConfiguration
+     */
+    private $storeConfig;
+
+    /**
+     * @var WebstoreHelper
+     */
+    private $storeHelper;
+
+    /**
      * SettingsController constructor.
      * @param SettingsService $settingsService
+     * @param Helper $helper
+     * @param WebstoreConfiguration $storeConfig
+     * @param WebstoreHelper $storeHelper
      */
-    public function __construct(SettingsService $settingsService)
+    public function __construct
+    (
+        SettingsService $settingsService,
+        Helper $helper,
+        WebstoreConfiguration $storeConfig,
+        WebstoreHelper $storeHelper
+    )
     {
         $this->settingsService = $settingsService;
+        $this->helper = $helper;
+        $this->storeConfig = $storeConfig;
+        $this->storeHelper = $storeHelper;
     }
 
     /**
@@ -43,58 +74,31 @@ class SettingsController extends Controller
 
     public function verifyCredentials()
     {
-        $pluginId = null;
+
+        $endpoint = $this->storeConfig->domain;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
-        $design = null;
-        $endpoint = 'http://olos111.plentymarkets-cloud01.com';
-        $customerId = 1234;
-        $licenseKey = 5555;
+        $customerId = $this->settingsService->getSettingsValue('customer_id');
+        $licenseKey = $this->settingsService->getSettingsValue('license_key');
         $body = [
             'base' => [
                 'type' => "MAGENTO2",
-                'pluginId' => $pluginId,
-                'endpoint' => $endpoint,
+                'pluginId' => $this->settingsService->getSettingsValue('plugin_id'),
+                'endpoint' => $this->settingsService->getSettingsValue('endpoint'),
                 'appKey' => '',
                 'appSecret' => $token,
             ],
             'frontend' => [
-                'design' => $design,
+                'design' => $this->settingsService->getSettingsValue('design'),
             ],
             'search' => [
-                'design' => $design,
+                'design' => $this->settingsService->getSettingsValue('design'),
             ],
         ];
 
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
-
-        return $this->getHttpPage($url, $body, $customerId, $licenseKey);
+return $endpoint;
+       // return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 
-
-    public function getHttpPage($url, $body, $customerId, $licenceKey)
-    {
-        $bodyString = json_encode($body);
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, "$customerId:$licenceKey");
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($bodyString),
-        ));
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $bodyString);
-
-        $response = curl_exec($curl);
-        $result = json_decode($response, true);
-        curl_close($curl);
-
-        return $result;
-    }
 }

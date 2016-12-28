@@ -84,7 +84,7 @@ class SettingsController extends Controller
         {
             return 'error';
         }
-        $domain = $webstoreConfig->domain;
+        $domain = $_SERVER['SERVER_NAME'];
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');

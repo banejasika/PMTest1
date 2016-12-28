@@ -60,7 +60,7 @@ class SettingsController extends Controller
         $tests['token'] = $request->get('token');
 
         foreach ($tests as $key => $value) {
-            if(empty($value)) {
+            if(!empty($value)) {
                 switch ($key) {
                     case 'test':
                         $this->settingsService->setSettingsValue('yc_test', $value);
@@ -125,7 +125,14 @@ class SettingsController extends Controller
      */
     public function loadSettings()
     {
-        echo $this->settingsService->getSettingsValue('yc_test');
+        return json_encode($result = array(
+            'yc_test' => $this->settingsService->getSettingsValue('yc_test'),
+            'customer_id' => $this->settingsService->getSettingsValue('customer_id'),
+            'license_key' => $this->settingsService->getSettingsValue('license_key'),
+            'plugin_id' => $this->settingsService->getSettingsValue('plugin_id'),
+            'design' => $this->settingsService->getSettingsValue('design'),
+            'token' => $this->settingsService->getSettingsValue('token'),
+    ));
     }
 
 }

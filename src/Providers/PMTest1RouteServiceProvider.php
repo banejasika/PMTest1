@@ -21,7 +21,6 @@ class PMTest1RouteServiceProvider extends RouteServiceProvider
 		//settings
 		$router->post('pmtest1/settings/', 'PMTest1\Controllers\SettingsController@saveSettings');
 		$router->get('pmtest1/settings/', 'PMTest1\Controllers\SettingsController@loadSettings');
-        $router->get('pmtest1/settings/verify/', 'PMTest1\Controllers\SettingsController@verifyCredentials');
 	}
 
 }

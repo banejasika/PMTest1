@@ -46,20 +46,18 @@ class SettingsController extends Controller
 
     /**
      * @param Request $request
+     * @return mixed|string
      */
     public function saveSettings(Request $request)
     {
         $tests = array();
-        $token = $request->get('token');
-        if (!$token) {
-            return 'Token must be set!';
-        }
 
         $tests['test'] = $request->get('test');
         $tests['customer_id'] = $request->get('customer_id');
         $tests['license_key'] = $request->get('license_key');
         $tests['plugin_id'] = $request->get('plugin_id');
         $tests['design'] = $request->get('design');
+        $tests['token'] = $request->get('token');
 
         foreach ($tests as $key => $value) {
             if(empty($value)) {
@@ -79,8 +77,16 @@ class SettingsController extends Controller
                     case 'design':
                         $this->settingsService->setSettingsValue('design', $value);
                         break;
+                    case 'token':
+                        $this->settingsService->setSettingsValue('token', $value);
+                        break;
                 }
             }
+        }
+
+        $token = $request->get('token');
+        if (!$token) {
+            return 'Token must be set!';
         }
 
         /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */

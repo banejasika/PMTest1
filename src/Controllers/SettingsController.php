@@ -92,7 +92,7 @@ class SettingsController extends Controller
             'base' => [
                 'type' => "MAGENTO2",
                 'pluginId' => $this->settingsService->getSettingsValue('plugin_id'),
-                'endpoint' => $this->settingsService->getSettingsValue('endpoint'),
+                'endpoint' => $domain,
                 'appKey' => '',
                 'appSecret' => $token,
             ],
@@ -106,8 +106,8 @@ class SettingsController extends Controller
 
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
-        return $domain;
-       // return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
+//        return $domain;
+        return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 
 }

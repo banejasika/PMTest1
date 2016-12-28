@@ -74,7 +74,7 @@ class SettingsController extends Controller
 
     public function verifyCredentials()
     {
-
+        $this->storeConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
         $endpoint = $this->storeConfig->domain;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');

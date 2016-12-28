@@ -50,16 +50,16 @@ class SettingsController extends Controller
      */
     public function saveSettings(Request $request)
     {
-        $tests = array();
+        $tests = [];
 
-        $tests['yc_test'] = $request->get('yc_test');
-        $tests['customer_id'] = $request->get('customer_id');
-        $tests['license_key'] = $request->get('license_key');
-        $tests['plugin_id'] = $request->get('plugin_id');
-        $tests['design'] = $request->get('design');
-        $tests['token'] = $request->get('token');
+        $configFields['yc_test'] = $request->get('yc_test');
+        $configFields['customer_id'] = $request->get('customer_id');
+        $configFields['license_key'] = $request->get('license_key');
+        $configFields['plugin_id'] = $request->get('plugin_id');
+        $configFields['design'] = $request->get('design');
+        $configFields['token'] = $request->get('token');
 
-        foreach ($tests as $key => $value) {
+        foreach ($configFields as $key => $value) {
             if(!empty($value)) {
                 switch ($key) {
                     case 'yc_test':

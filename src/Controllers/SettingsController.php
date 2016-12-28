@@ -49,35 +49,54 @@ class SettingsController extends Controller
      */
     public function saveSettings(Request $request)
     {
-        $test = $request->get('test');
-        $this->settingsService->setSettingsValue('yc_test', $test);
-    }
+        $tests = array();
+        $token = $request->get('token');
+        if (!$token) {
+            return 'Token must be set!';
+        }
 
-    /**
-     * @return bool|mixed
-     */
-    public function loadSettings()
-    {
-        echo $this->settingsService->getSettingsValue('yc_test');
-    }
+        $tests['test'] = $request->get('test');
+        $tests['customer_id'] = $request->get('customer_id');
+        $tests['license_key'] = $request->get('license_key');
+        $tests['plugin_id'] = $request->get('plugin_id');
+        $tests['design'] = $request->get('design');
 
+        foreach ($tests as $key => $value) {
+            if(empty($value)) {
+                switch ($key) {
+                    case 'test':
+                        $this->settingsService->setSettingsValue('yc_test', $value);
+                        break;
+                    case 'customer_id':
+                        $this->settingsService->setSettingsValue('customer_id', $value);
+                        break;
+                    case 'license_key':
+                        $this->settingsService->setSettingsValue('license_key', $value);
+                        break;
+                    case 'plugin_id':
+                        $this->settingsService->setSettingsValue('plugin_id', $value);
+                        break;
+                    case 'design':
+                        $this->settingsService->setSettingsValue('design', $value);
+                        break;
+                }
+            }
+        }
 
-    public function verifyCredentials()
-    {
         /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
         $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
         if (is_null($webstoreConfig)) {
             return 'error';
         }
-        $domain = $webstoreConfig->domain;
-        $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
+        $baseURL = $webstoreConfig->domain;
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');
+
         $body = [
             'base' => [
                 'type' => "MAGENTO2",
                 'pluginId' => $this->settingsService->getSettingsValue('plugin_id'),
-                'endpoint' => $domain,
+                'endpoint' => $baseURL,
                 'appKey' => '',
                 'appSecret' => $token,
             ],
@@ -92,6 +111,15 @@ class SettingsController extends Controller
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
 
         return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
+
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function loadSettings()
+    {
+        echo $this->settingsService->getSettingsValue('yc_test');
     }
 
 }

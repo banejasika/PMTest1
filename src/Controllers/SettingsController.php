@@ -74,8 +74,17 @@ class SettingsController extends Controller
 
     public function verifyCredentials()
     {
-        $this->storeConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
-        $endpoint = $this->storeConfig->domainSsl;
+
+        /** @var \Plenty\Modules\Helper\Services\WebstoreHelper $webstoreHelper */
+        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
+
+        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
+        $webstoreConfig = $webstoreHelper->getCurrentWebstoreConfiguration();
+        if(is_null($webstoreConfig))
+        {
+            return 'error';
+        }
+        $domain = $webstoreConfig->domain;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');
@@ -97,7 +106,7 @@ class SettingsController extends Controller
 
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
-        return $endpoint;
+        return $domain;
        // return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 

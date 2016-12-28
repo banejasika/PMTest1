@@ -40,12 +40,9 @@ class SettingsController extends Controller
         echo $this->settingsService->getSettingsValue('yc_test');
     }
 
-    /**
-     *
-     */
+
     public function verifyCredentials()
     {
-
         $pluginId = null;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $design = null;
@@ -70,13 +67,13 @@ class SettingsController extends Controller
 
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
+
         return $this->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 
 
     public function getHttpPage($url, $body, $customerId, $licenceKey)
     {
-
         $bodyString = json_encode($body);
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -87,38 +84,16 @@ class SettingsController extends Controller
         curl_setopt($curl, CURLOPT_TIMEOUT, 10);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD, "$customerId:$licenceKey");
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
-            'Content-Length: ' . strlen($bodyString),));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($bodyString),
+        ));
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $bodyString);
 
         $response = curl_exec($curl);
         $result = json_decode($response, true);
         curl_close($curl);
-
-//        $headers = curl_getinfo($cURL, CURLINFO_HEADER_OUT);
-//        $status = curl_getinfo($cURL, CURLINFO_HTTP_CODE);
-
-//        $eno = curl_errno($cURL);
-
-//        if ($eno && $eno != 22) {
-//            $msg = 'I/O error requesting [' . $url . ']. Code: ' . $eno . ". " . curl_error($cURL);
-//            curl_close($cURL);
-//            return $msg;
-//        }
-
-//        switch ($status) {
-//            case 200:
-//                break;
-//            case 409:
-//                if ($result['faultCode'] === 'pluginAlreadyExistsFault') {
-//                    break;
-//                }
-//            //it will will continue (fall-through) to the default intentionally
-//            default:
-//                $msg = $result['faultMessage'] . ' With status code: ' . $status;
-//                return $msg;
-//        }
 
         return $result;
     }

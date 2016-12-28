@@ -75,11 +75,11 @@ class SettingsController extends Controller
     public function verifyCredentials()
     {
 
-        /** @var \Plenty\Modules\Helper\Services\WebstoreHelper $webstoreHelper */
-        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
+//        /** @var \Plenty\Modules\Helper\Services\WebstoreHelper $webstoreHelper */
+//        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
 
         /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
-        $webstoreConfig = $webstoreHelper->getCurrentWebstoreConfiguration();
+        $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
         if(is_null($webstoreConfig))
         {
             return 'error';

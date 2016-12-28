@@ -75,7 +75,7 @@ class SettingsController extends Controller
     public function verifyCredentials()
     {
         $this->storeConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
-        $endpoint = $this->storeConfig->domain;
+        $endpoint = $this->storeConfig->domainSsl;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');
@@ -97,7 +97,7 @@ class SettingsController extends Controller
 
 
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
-return $endpoint;
+        return $endpoint;
        // return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 

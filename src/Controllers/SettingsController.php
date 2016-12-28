@@ -75,15 +75,15 @@ class SettingsController extends Controller
     public function verifyCredentials()
     {
 
-        /** @var \Plenty\Modules\Helper\Services\WebstoreHelper $webstoreHelper */
-        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
-
-        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
-        $webstoreConfig = $webstoreHelper->getCurrentWebstoreConfiguration();
-        if(is_null($webstoreConfig))
-        {
-            return 'error';
-        }
+//        /** @var \Plenty\Modules\Helper\Services\WebstoreHelper $webstoreHelper */
+//        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
+//
+//        /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
+//        $webstoreConfig = $webstoreHelper->getCurrentWebstoreConfiguration();
+//        if(is_null($webstoreConfig))
+//        {
+//            return 'error';
+//        }
         $domain = $_SERVER['SERVER_NAME'];
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');

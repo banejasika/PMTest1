@@ -62,7 +62,7 @@ class SettingsController extends Controller
         foreach ($tests as $key => $value) {
             if(!empty($value)) {
                 switch ($key) {
-                    case 'test':
+                    case 'yc_test':
                         $this->settingsService->setSettingsValue('yc_test', $value);
                         break;
                     case 'customer_id':

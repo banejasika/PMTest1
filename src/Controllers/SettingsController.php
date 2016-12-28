@@ -78,39 +78,23 @@ class SettingsController extends Controller
     {
 
         $bodyString = json_encode($body);
-        $header = array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($bodyString),);
-        $cURL = curl_init();
-        curl_setopt($cURL, CURLOPT_URL, $url);
-        curl_setopt($cURL, CURLOPT_HEADER, 0);
-        curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($cURL, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($cURL, CURLOPT_TIMEOUT, 10);
-        curl_setopt($cURL, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($cURL, CURLOPT_USERPWD, "$customerId:$licenceKey");
-        curl_setopt($cURL, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($cURL, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($cURL, CURLOPT_POSTFIELDS, $bodyString);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, "$customerId:$licenceKey");
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+            'Content-Length: ' . strlen($bodyString),));
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $bodyString);
 
-//            CURLOPT_HEADER => 0,
-//            CURLOPT_CUSTOMREQUEST => "POST",
-//            CURLOPT_RETURNTRANSFER => true,
-//            CURLOPT_FOLLOWLOCATION => true,
-//            CURLINFO_HEADER_OUT => true,
-//            CURLOPT_TIMEOUT => 10,
-//            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-//            CURLOPT_USERPWD => "$customerId:$licenceKey",
-//            CURLOPT_SSL_VERIFYPEER => false,
-//            CURLOPT_HTTPHEADER => [
-//                'Content-Type: application/json',
-//                'Content-Length: ' . strlen($bodyString),
-//            ],
-//            CURLOPT_POSTFIELDS => $bodyString,
-
-        $response = curl_exec($cURL);
+        $response = curl_exec($curl);
         $result = json_decode($response, true);
+        curl_close($curl);
 
 //        $headers = curl_getinfo($cURL, CURLINFO_HEADER_OUT);
 //        $status = curl_getinfo($cURL, CURLINFO_HTTP_CODE);
@@ -123,7 +107,6 @@ class SettingsController extends Controller
 //            return $msg;
 //        }
 
-        curl_close($cURL);
 //        switch ($status) {
 //            case 200:
 //                break;

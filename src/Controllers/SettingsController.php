@@ -6,7 +6,6 @@ use PMTest1\Services\SettingsService;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use PMTest1\Helper\Helper;
-use Plenty\Modules\System\Models\WebstoreConfiguration;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
 
 class SettingsController extends Controller
@@ -24,11 +23,6 @@ class SettingsController extends Controller
     private $helper;
 
     /**
-     * @var WebstoreConfiguration
-     */
-    private $storeConfig;
-
-    /**
      * @var WebstoreHelper
      */
     private $storeHelper;
@@ -37,20 +31,16 @@ class SettingsController extends Controller
      * SettingsController constructor.
      * @param SettingsService $settingsService
      * @param Helper $helper
-     * @param WebstoreConfiguration $storeConfig
      * @param WebstoreHelper $storeHelper
      */
     public function __construct
     (
         SettingsService $settingsService,
         Helper $helper,
-        WebstoreConfiguration $storeConfig,
         WebstoreHelper $storeHelper
-    )
-    {
+    ) {
         $this->settingsService = $settingsService;
         $this->helper = $helper;
-        $this->storeConfig = $storeConfig;
         $this->storeHelper = $storeHelper;
     }
 
@@ -74,17 +64,12 @@ class SettingsController extends Controller
 
     public function verifyCredentials()
     {
-
-//        /** @var \Plenty\Modules\Helper\Services\WebstoreHelper $webstoreHelper */
-//        $webstoreHelper = pluginApp(\Plenty\Modules\Helper\Services\WebstoreHelper::class);
-
         /** @var \Plenty\Modules\System\Models\WebstoreConfiguration $webstoreConfig */
         $webstoreConfig = $this->storeHelper->getCurrentWebstoreConfiguration();
-        if(is_null($webstoreConfig))
-        {
+        if (is_null($webstoreConfig)) {
             return 'error';
         }
-        return $domain = $webstoreConfig->domain;
+        $domain = $webstoreConfig->domain;
         $token = 'ufakvceomsv3ett48gpadw9a45l2g20b';
         $customerId = $this->settingsService->getSettingsValue('customer_id');
         $licenseKey = $this->settingsService->getSettingsValue('license_key');
@@ -104,9 +89,8 @@ class SettingsController extends Controller
             ],
         ];
 
-
         $url = self::YOOCHOOSE_LICENSE_URL . $customerId . '/plugin/update?createIfNeeded=true&fallbackDesign=true';
-//        return $domain;
+
         return $this->helper->getHttpPage($url, $body, $customerId, $licenseKey);
     }
 

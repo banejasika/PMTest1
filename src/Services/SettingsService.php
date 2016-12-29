@@ -1,13 +1,13 @@
 <?php
 
-namespace PMTest1\Services;
+namespace PMTest\Services;
 
-use PMTest1\Models\Settings;
+use PMTest\Models\Settings;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 
 /**
  * Class SettingsService
- * @package PMTest1\Services
+ * @package PMTest\Services
  */
 class SettingsService
 {

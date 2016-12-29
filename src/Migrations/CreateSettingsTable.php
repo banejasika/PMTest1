@@ -1,8 +1,8 @@
 <?php
 
-namespace PMTest1\Migrations;
+namespace PMTest\Migrations;
 
-use PMTest1\Models\Settings;
+use PMTest\Models\Settings;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 
 /**

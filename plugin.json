@@ -1,20 +1,20 @@
 {
-      "name":"PMTest1",
+      "name":"PMTest",
       "description":"My first plugin",
-      "namespace":"PMTest1",
+      "namespace":"PMTest",
       "author":"Test",
       "type":"template",
       "version": "1.0.0",
-      "serviceProvider":"PMTest1\\Providers\\PMTest1ServiceProvider",
+      "serviceProvider":"PMTest\\Providers\\PMTestServiceProvider",
       "dataProviders": [
             {
-            "key":"PMTest1\\Providers\\PMTest1ServiceDataProvider",
+            "key":"PMTest\\Providers\\PMTestServiceDataProvider",
             "name":"Y Tracking",
             "description": "Y Tracking"
             }
       ],
       "javaScriptFiles": [],
       "runOnBuild": [
-            "PMTest1\\Migrations\\CreateSettingsTable"
+            "PMTest\\Migrations\\CreateSettingsTable"
       ]
 }

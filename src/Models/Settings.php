@@ -1,6 +1,6 @@
 <?php
 
-namespace PMTest1\Models;
+namespace PMTest\Models;
 
 use Plenty\Modules\Plugin\DataBase\Contracts\Model;
 
@@ -25,6 +25,6 @@ class Settings extends Model
      */
     public function getTableName():string
     {
-        return 'PMTest1::settings';
+        return 'PMTest::settings';
     }
 }

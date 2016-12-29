@@ -1,11 +1,11 @@
 <?php
 
-namespace PMTest1\Controllers;
+namespace PMTest\Controllers;
 
-use PMTest1\Services\SettingsService;
+use PMTest\Services\SettingsService;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
-use PMTest1\Helper\Helper;
+use PMTest\Helpers\Data;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
 
 class SettingsController extends Controller
@@ -18,7 +18,7 @@ class SettingsController extends Controller
     private $settingsService;
 
     /**
-     * @var Helper
+     * @var Data
      */
     private $helper;
 
@@ -30,13 +30,13 @@ class SettingsController extends Controller
     /**
      * SettingsController constructor.
      * @param SettingsService $settingsService
-     * @param Helper $helper
+     * @param Data $helper
      * @param WebstoreHelper $storeHelper
      */
     public function __construct
     (
         SettingsService $settingsService,
-        Helper $helper,
+        Data $helper,
         WebstoreHelper $storeHelper
     ) {
         $this->settingsService = $settingsService;

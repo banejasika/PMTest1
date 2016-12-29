@@ -1,8 +1,8 @@
 <?php
 
-namespace PMTest1\Helper;
+namespace PMTest\Helpers;
 
-class Helper
+class Data
 {
 
     public function getHttpPage($url, $body, $customerId, $licenceKey)

@@ -1,5 +1,5 @@
 <?php
-namespace PMTest1\Providers;
+namespace PMTest\Providers;
 
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Templates\Twig;
@@ -12,10 +12,10 @@ use IO\Helper\TemplateContainer;
 
 
 /**
- * Class PMTest1ServiceProvider
- * @package PMTest1\Providers
+ * Class PMTestServiceProvider
+ * @package PMTest\Providers
  */
-class PMTest1ServiceProvider extends ServiceProvider
+class PMTestServiceProvider extends ServiceProvider
 {
 
 	const YOOCHOOSE_CDN_SCRIPT = '//event.yoochoose.net/cdn';
@@ -26,7 +26,7 @@ class PMTest1ServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->getApplication()->register(PMTest1RouteServiceProvider::class);
+		$this->getApplication()->register(PMTestRouteServiceProvider::class);
 		$events = $this->getEventDispatcher();
 	}
 
@@ -49,7 +49,7 @@ class PMTest1ServiceProvider extends ServiceProvider
 
 		$eventDispatcher->listen('tpl.category.container', function(TemplateContainer $container, $templateData) {
 //			$templateData = $container->getTemplateData();
-//			$container->withData("PMTest1::PageDesign.PageDesign", $templateData['identifier']);
+//			$container->withData("PMTest::PageDesign.PageDesign", $templateData['identifier']);
 //			$service->addJsFile("http://localhost/v1/1465/tracking.js");
 		}, 0);
 
@@ -57,16 +57,16 @@ class PMTest1ServiceProvider extends ServiceProvider
 
 	private function getScriptURL(ConfigRepository $config):string
 	{
-		$mandator = $config->get('PMTest1.customer.id');
-		$plugin = $config->get('PMTest1.plugin.id');
+		$mandator = $config->get('PMTest.customer.id');
+		$plugin = $config->get('PMTest.plugin.id');
 		$plugin = $plugin ? '/' . $plugin : '';
-		$scriptOverwrite = $config->get('PMTest1.overwrite.endpoint');
+		$scriptOverwrite = $config->get('PMTest.overwrite.endpoint');
 
 		if ($scriptOverwrite) {
 			$scriptOverwrite = (!preg_match('/^(http|\/\/)/', $scriptOverwrite) ? '//' : '') . $scriptOverwrite;
 			$scriptUrl = preg_replace('(^https?:)', '', $scriptOverwrite);
 		} else {
-			$scriptUrl = $config->get('PMTest1.performance') ?
+			$scriptUrl = $config->get('PMTest.performance') ?
 				self::AMAZON_CDN_SCRIPT : self::YOOCHOOSE_CDN_SCRIPT;
 		}
 

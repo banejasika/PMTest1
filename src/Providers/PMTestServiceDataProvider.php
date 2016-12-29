@@ -1,14 +1,14 @@
 <?php
 
-namespace PMTest1\Providers;
+namespace PMTest\Providers;
 
 use Plenty\Plugin\Templates\Twig;
 
 /**
- * Class PMTest1ServiceDataProvider
- * @package PMTest1\Providers
+ * Class PMTestServiceDataProvider
+ * @package PMTest\Providers
  */
-class PMTest1ServiceDataProvider
+class PMTestServiceDataProvider
 {
     /**
      * @param Twig $twig
@@ -18,6 +18,6 @@ class PMTest1ServiceDataProvider
     public function call(   Twig $twig,
         $args)
     {
-        return $twig->render('PMTest1::content.head');
+        return $twig->render('PMTest::content.head');
     }
 }

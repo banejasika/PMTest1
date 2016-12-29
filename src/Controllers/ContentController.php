@@ -1,5 +1,5 @@
 <?php
-namespace PMTest1\Controllers;
+namespace PMTest\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\ConfigRepository;
@@ -11,7 +11,7 @@ use IO\Helper\TemplateContainer;
 
 /**
  * Class ContentController
- * @package PMTest1\Controllers
+ * @package PMTest\Controllers
  */
 class ContentController extends Controller
 {
@@ -38,7 +38,7 @@ class ContentController extends Controller
 
         $test = $this->container->getTemplateData();
 
-		return $twig->render('PMTest1::content.hello', ['test' => json_encode($test)]);
+		return $twig->render('PMTest::content.hello', ['test' => json_encode($test)]);
         
 	}
 
@@ -46,16 +46,16 @@ class ContentController extends Controller
     public function getTitle(ConfigRepository $config):string
     {
 
-        $mandator = $config->get('PMTest1.customer.id');
-        $plugin = $config->get('PMTest1.plugin.id');
+        $mandator = $config->get('PMTest.customer.id');
+        $plugin = $config->get('PMTest.plugin.id');
         $plugin = $plugin ? '/' . $plugin : '';
-        $scriptOverwrite = $config->get('PMTest1.overwrite.endpoint');
+        $scriptOverwrite = $config->get('PMTest.overwrite.endpoint');
 
         if ($scriptOverwrite) {
             $scriptOverwrite = (!preg_match('/^(http|\/\/)/', $scriptOverwrite) ? '//' : '') . $scriptOverwrite;
             $scriptUrl = preg_replace('(^https?:)', '', $scriptOverwrite);
         } else {
-            $scriptUrl = $config->get('PMTest1.performance') ?
+            $scriptUrl = $config->get('PMTest.performance') ?
                 self::AMAZON_CDN_SCRIPT : self::YOOCHOOSE_CDN_SCRIPT;
         }
 
